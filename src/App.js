@@ -11,8 +11,6 @@ class App extends React.Component {
   getResults = () => {
     axios.get('https://demo.staging.energyhelpline-aws.com/api/results/a8823b4b-1abe-41de-a5b3-ab6700c08d98').then(res => {
       this.setState({ results: res.data.elecResults});
-      console.log("response", res.data.results)
-
     })
   }
 
@@ -42,7 +40,8 @@ class App extends React.Component {
         </div>
 
         <div className="results">
-          <p>{this.state.results.map((result) => result.name)}</p>
+          {this.state.results.map((result) => <p>{result.name}</p>)}
+          {/* add key names to get rid of warning  */}
         </div>
 
       </div>
