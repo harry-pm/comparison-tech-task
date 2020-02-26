@@ -10,7 +10,9 @@ class App extends React.Component {
 
   getResults = () => {
     axios.get('https://demo.staging.energyhelpline-aws.com/api/results/a8823b4b-1abe-41de-a5b3-ab6700c08d98').then(res => {
-      this.setState({ results: res.data});
+      this.setState({ results: res.data.elecResults});
+      console.log("response", res.data.results)
+
     })
   }
 
@@ -20,6 +22,16 @@ class App extends React.Component {
   }
   
   render () {
+    if (this.state.results.length === 0) {
+      return (
+        <div className="form">
+          <form onSubmit={this.handleSubmit}>
+            <input type="submit" value="display results"></input>
+          </form>   
+      </div>
+      )
+    }
+    
     return (
       <div className="App">
 
@@ -30,8 +42,7 @@ class App extends React.Component {
         </div>
 
         <div className="results">
-          {/* <p>{this.state.results.gasResults}</p>
-          <p>{this.state.results.elecResults}</p> */}
+          <p>{this.state.results.map((result) => result.name)}</p>
         </div>
 
       </div>
